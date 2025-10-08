@@ -1,0 +1,35 @@
+# Quro Waitlist - Cursor Rules
+
+## Project Overview
+This is a Next.js 14 waitlist application for Quro, using TypeScript, Tailwind CSS, and SQLite.
+
+## Code Style
+- Use TypeScript for all new files
+- Use functional components with hooks
+- Prefer async/await over promises
+- Use Tailwind CSS for styling
+- Follow Next.js 14 App Router conventions
+
+## File Structure
+- `/app` - Next.js app router pages and layouts
+- `/app/api` - API routes
+- `/lib` - Utility functions and database logic
+- `/public` - Static assets
+
+## Database
+- SQLite with better-sqlite3
+- Database functions are in `/lib/db.ts`
+- Never expose database queries in client components
+
+## Security
+- Admin routes require authentication
+- Validate all user inputs
+- Sanitize email addresses
+- Use environment variables for secrets
+
+## Testing
+- Test email validation
+- Test admin authentication
+- Test database operations
+- Test visitor tracking
+
