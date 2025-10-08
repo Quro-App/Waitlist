@@ -131,3 +131,4 @@ MIT
 
 For questions or issues, please open an issue on GitHub.
 
+# Waitlist
