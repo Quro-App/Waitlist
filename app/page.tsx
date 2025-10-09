@@ -10,10 +10,7 @@ export default function Home() {
   const [waitlistCount, setWaitlistCount] = useState<number | null>(null);
 
   useEffect(() => {
-    // Track page visit
     fetch('/api/track-visit', { method: 'POST' });
-    
-    // Get waitlist count
     fetch('/api/stats')
       .then(res => res.json())
       .then(data => setWaitlistCount(data.emailCount))
@@ -28,9 +25,7 @@ export default function Home() {
     try {
       const response = await fetch('/api/subscribe', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       });
 
@@ -38,120 +33,101 @@ export default function Home() {
 
       if (response.ok) {
         setStatus('success');
-        setMessage('🎉 You\'re on the list! We\'ll be in touch soon.');
+        setMessage('✓ You\'re on the list!');
         setEmail('');
-        if (waitlistCount !== null) {
-          setWaitlistCount(waitlistCount + 1);
-        }
+        if (waitlistCount !== null) setWaitlistCount(waitlistCount + 1);
       } else {
         setStatus('error');
-        setMessage(data.error || 'Something went wrong. Please try again.');
+        setMessage(data.error || 'Something went wrong.');
       }
     } catch {
       setStatus('error');
-      setMessage('Something went wrong. Please try again.');
+      setMessage('Something went wrong.');
     }
   };
 
   return (
-    <main className="min-h-screen bg-black flex items-center justify-center">
-      <div className="w-full max-w-4xl mx-auto px-6 py-20 text-center">
-        {/* Logo */}
-        <div className="flex justify-center mb-12">
-          <div className="relative w-48 h-48 md:w-64 md:h-64">
-            <Image
-              src="/Quro Logo Transparent.png"
-              alt="Quro Logo"
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
+    <main className="min-h-screen bg-black text-white">
+      <div className="max-w-3xl mx-auto px-6 py-16 md:py-24">
+        
+        {/* Logo - Centered at top */}
+        <div className="flex justify-center mb-8">
+          <img 
+            src="/Quro Logo Transparent.png" 
+            alt="Quro" 
+            className="w-32 h-32 md:w-40 md:h-40 object-contain"
+          />
         </div>
 
-        {/* Main Headline with Glow Effect */}
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-16 tracking-tight text-white" 
-            style={{ 
-              textShadow: '0 0 40px rgba(255, 255, 255, 0.5), 0 0 80px rgba(255, 255, 255, 0.3)'
-            }}>
-          Curious to know more?
-        </h1>
+        {/* Hero Section - Simple and Direct */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            Real-time wait times for barbershops
+          </h1>
+          <p className="text-xl md:text-2xl text-gray-400">
+            Know before you go. Never wait in line again.
+          </p>
+        </div>
 
-        {/* Waitlist Section */}
-        <div className="max-w-2xl mx-auto mb-32">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
-            Join the Waitlist
-          </h2>
-          
-          <form onSubmit={handleSubmit} className="mb-6">
-            <div className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-                required
-                className="flex-1 px-6 py-4 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent text-lg"
-                disabled={status === 'loading'}
-              />
-              <button
-                type="submit"
-                disabled={status === 'loading'}
-                className="px-8 py-4 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-lg"
-              >
-                {status === 'loading' ? 'Joining...' : 'Join'}
-              </button>
-            </div>
+        {/* Email Form - Clean and Focused */}
+        <div className="max-w-md mx-auto mb-12">
+          <form onSubmit={handleSubmit} className="space-y-3">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              required
+              disabled={status === 'loading'}
+              className="w-full px-4 py-3 bg-white text-black rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-gray-400 disabled:opacity-50"
+            />
+            <button
+              type="submit"
+              disabled={status === 'loading'}
+              className="w-full px-4 py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition disabled:opacity-50 text-lg"
+            >
+              {status === 'loading' ? 'Joining...' : 'Join Waitlist'}
+            </button>
           </form>
 
           {/* Status Message */}
           {message && (
-            <div
-              className={`mt-4 p-4 rounded-lg text-center ${
-                status === 'success'
-                  ? 'bg-green-900/30 border border-green-700 text-green-300'
-                  : 'bg-red-900/30 border border-red-700 text-red-300'
-              }`}
-            >
+            <p className={`mt-4 text-center text-sm ${
+              status === 'success' ? 'text-green-400' : 'text-red-400'
+            }`}>
               {message}
-            </div>
+            </p>
+          )}
+
+          {/* Waitlist Counter */}
+          {waitlistCount !== null && waitlistCount > 0 && (
+            <p className="mt-4 text-center text-gray-500 text-sm">
+              {waitlistCount} {waitlistCount === 1 ? 'person has' : 'people have'} joined
+            </p>
           )}
         </div>
 
-        {/* Animated Quro GIF */}
-        <div className="flex justify-center mb-16">
-          <div className="relative w-64 h-64 md:w-80 md:h-80">
-            <Image
-              src="/Quro.gif"
-              alt="Quro Animation"
-              fill
-              className="object-contain"
-              unoptimized
-            />
-          </div>
+        {/* Animated GIF - Subtle */}
+        <div className="flex justify-center mb-12">
+          <img 
+            src="/Quro GIF.gif" 
+            alt="Quro"
+            className="w-48 h-48 md:w-56 md:h-56 object-contain opacity-90"
+          />
         </div>
 
-        {/* Contact Section */}
-        <div className="mb-32">
-          <p className="text-xl md:text-2xl text-gray-400 mb-12">
-            Contact us at
-          </p>
-          <div className="inline-block px-12 py-5 bg-black border-2 border-gray-700 rounded-full">
+        {/* Contact - Minimal Footer */}
+        <div className="text-center pt-8 border-t border-gray-800">
+          <p className="text-gray-500 text-sm">
+            Questions?{' '}
             <a 
               href="mailto:business.quro@gmail.com"
-              className="text-xl md:text-2xl text-white font-medium hover:text-gray-300 transition-colors"
+              className="text-gray-400 hover:text-white transition underline"
             >
               business.quro@gmail.com
             </a>
-          </div>
-        </div>
-
-        {/* Footer */}
-        <footer className="mt-32">
-          <p className="text-xs text-gray-600">
-            For questions, email us at business.quro@gmail.com
           </p>
-        </footer>
+        </div>
       </div>
     </main>
   );
