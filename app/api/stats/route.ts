@@ -2,6 +2,9 @@
 import { NextResponse } from 'next/server';
 import { getEmailCount, getVisitCount } from '@/lib/db';
 
+// Force dynamic rendering for this route
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     // Fetch stats with error handling

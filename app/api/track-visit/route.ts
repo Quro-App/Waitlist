@@ -2,6 +2,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { trackVisit } from '@/lib/db';
 
+// Force dynamic rendering for this route
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
   try {
     // Get IP address with proper sanitization

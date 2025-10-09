@@ -3,6 +3,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getStats } from '@/lib/db';
 import crypto from 'crypto';
 
+// Force dynamic rendering for this route
+export const dynamic = 'force-dynamic';
+
 // Helper function for secure string comparison (prevents timing attacks)
 function secureCompare(a: string, b: string): boolean {
   if (typeof a !== 'string' || typeof b !== 'string') {
