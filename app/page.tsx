@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import type { FormEvent } from 'react';
 
 export default function Home() {
   const [email, setEmail] = useState('');
@@ -56,6 +57,19 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-black flex items-center justify-center">
       <div className="w-full max-w-4xl mx-auto px-6 py-20 text-center">
+        {/* Logo */}
+        <div className="flex justify-center mb-12">
+          <div className="relative w-48 h-48 md:w-64 md:h-64">
+            <Image
+              src="/Quro Logo Transparent.png"
+              alt="Quro Logo"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+        </div>
+
         {/* Main Headline with Glow Effect */}
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-16 tracking-tight text-white" 
             style={{ 
@@ -103,6 +117,19 @@ export default function Home() {
               {message}
             </div>
           )}
+        </div>
+
+        {/* Animated Quro GIF */}
+        <div className="flex justify-center mb-16">
+          <div className="relative w-64 h-64 md:w-80 md:h-80">
+            <Image
+              src="/Quro.gif"
+              alt="Quro Animation"
+              fill
+              className="object-contain"
+              unoptimized
+            />
+          </div>
         </div>
 
         {/* Contact Section */}
