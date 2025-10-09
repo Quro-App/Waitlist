@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import type { FormEvent } from 'react';
 
 export default function Home() {
   const [email, setEmail] = useState('');
@@ -21,7 +20,7 @@ export default function Home() {
       .catch(() => {});
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus('loading');
     setMessage('');
@@ -48,7 +47,7 @@ export default function Home() {
         setStatus('error');
         setMessage(data.error || 'Something went wrong. Please try again.');
       }
-    } catch (error) {
+    } catch {
       setStatus('error');
       setMessage('Something went wrong. Please try again.');
     }
@@ -157,4 +156,3 @@ export default function Home() {
     </main>
   );
 }
-
