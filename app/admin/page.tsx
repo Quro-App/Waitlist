@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 
 interface EmailEntry {
@@ -50,7 +50,7 @@ export default function AdminDashboard() {
     }
   };
 
-  const refreshStats = async () => {
+  const refreshStats = useCallback(async () => {
     if (!isAuthenticated) return;
 
     try {
@@ -67,14 +67,14 @@ export default function AdminDashboard() {
     } catch (err) {
       console.error('Failed to refresh stats');
     }
-  };
+  }, [isAuthenticated, password]);
 
   useEffect(() => {
     if (isAuthenticated) {
       const interval = setInterval(refreshStats, 30000); // Refresh every 30 seconds
       return () => clearInterval(interval);
     }
-  }, [isAuthenticated, password]);
+  }, [isAuthenticated, refreshStats]);
 
   const exportEmails = () => {
     if (!stats) return;

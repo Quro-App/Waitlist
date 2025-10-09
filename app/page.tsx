@@ -54,55 +54,41 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-900 to-black text-white">
-      <div className="max-w-4xl mx-auto px-6 py-16 md:py-24">
-        {/* Logo */}
-        <div className="flex justify-center mb-12">
-          <div className="relative w-48 h-48 md:w-64 md:h-64">
-            <Image
-              src="/Quro Logo.png"
-              alt="Quro Logo"
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
-        </div>
+    <main className="min-h-screen bg-black flex items-center justify-center">
+      <div className="w-full max-w-4xl mx-auto px-6 py-20 text-center">
+        {/* Main Headline with Glow Effect */}
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-16 tracking-tight text-white" 
+            style={{ 
+              textShadow: '0 0 40px rgba(255, 255, 255, 0.5), 0 0 80px rgba(255, 255, 255, 0.3)'
+            }}>
+          Curious to know more?
+        </h1>
 
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-            Know before you go
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-400 mb-4 max-w-2xl mx-auto">
-            Real-time wait times for barbershops. 
-            <br />
-            Never wait in line again.
-          </p>
-        </div>
-
-        {/* Waitlist Form */}
-        <div className="max-w-md mx-auto">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="relative">
+        {/* Waitlist Section */}
+        <div className="max-w-2xl mx-auto mb-32">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
+            Join the Waitlist
+          </h2>
+          
+          <form onSubmit={handleSubmit} className="mb-6">
+            <div className="flex flex-col sm:flex-row gap-3">
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 required
-                className="w-full px-6 py-4 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-all"
+                className="flex-1 px-6 py-4 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent text-lg"
                 disabled={status === 'loading'}
               />
+              <button
+                type="submit"
+                disabled={status === 'loading'}
+                className="px-8 py-4 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-lg"
+              >
+                {status === 'loading' ? 'Joining...' : 'Join'}
+              </button>
             </div>
-            
-            <button
-              type="submit"
-              disabled={status === 'loading'}
-              className="w-full px-6 py-4 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {status === 'loading' ? 'Joining...' : 'Join the Waitlist'}
-            </button>
           </form>
 
           {/* Status Message */}
@@ -117,39 +103,28 @@ export default function Home() {
               {message}
             </div>
           )}
-
-          {/* Waitlist Count */}
-          {waitlistCount !== null && (
-            <div className="mt-6 text-center text-gray-400">
-              <p className="text-sm">
-                <span className="font-semibold text-white">{waitlistCount}</span> people already signed up
-              </p>
-            </div>
-          )}
         </div>
 
-        {/* Features */}
-        <div className="mt-24 grid md:grid-cols-3 gap-8">
-          <div className="text-center">
-            <div className="text-4xl mb-4">⏱️</div>
-            <h3 className="text-xl font-semibold mb-2">Real-time Updates</h3>
-            <p className="text-gray-400">See live wait times at your favorite barbershops</p>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl mb-4">📍</div>
-            <h3 className="text-xl font-semibold mb-2">Find Nearby</h3>
-            <p className="text-gray-400">Discover barbershops near you with the shortest waits</p>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl mb-4">⚡</div>
-            <h3 className="text-xl font-semibold mb-2">Save Time</h3>
-            <p className="text-gray-400">Plan your visit when it's convenient for you</p>
+        {/* Contact Section */}
+        <div className="mb-32">
+          <p className="text-xl md:text-2xl text-gray-400 mb-12">
+            Contact us at
+          </p>
+          <div className="inline-block px-12 py-5 bg-black border-2 border-gray-700 rounded-full">
+            <a 
+              href="mailto:business.quro@gmail.com"
+              className="text-xl md:text-2xl text-white font-medium hover:text-gray-300 transition-colors"
+            >
+              business.quro@gmail.com
+            </a>
           </div>
         </div>
 
         {/* Footer */}
-        <footer className="mt-24 pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
-          <p>© 2025 Quro. All rights reserved.</p>
+        <footer className="mt-32">
+          <p className="text-xs text-gray-600">
+            For questions, email us at business.quro@gmail.com
+          </p>
         </footer>
       </div>
     </main>
